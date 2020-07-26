@@ -3,10 +3,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+var Gpio = require('onoff').Gpio; //require onoff to control GPIO
+var LEDPin = new Gpio(17, 'out'); //declare GPIO4 an output
 var port = 8080;
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
+    LEDPin.writeSync(0);
 });
 app.use(cors());
 app.use(bodyParser());

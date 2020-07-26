@@ -18,7 +18,7 @@ app.use(bodyParser());
 app.use(express.json({limit: '50mb'}));
 
 app.get('/set',(req, res) => {
-    console.log(req.params);
+    console.log(req.params.pin);
     // pins[req.params.pin].writeSync(req.params.state);
     res.json({"status":"done"});
 })

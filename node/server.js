@@ -3,8 +3,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const fs = require('fs');
-const { resolveSoa } = require('dns');
-const { kill } = require('process');
 var Gpio = require('onoff').Gpio;
 var pins = {
     "17": new Gpio(17, 'out'),
@@ -15,7 +13,7 @@ pins["17"].writeSync(1);
 pins["27"].writeSync(1);
 pins["22"].writeSync(1);
 app.use(cors());
-app.use(JSON.urlencoded());
+app.use(bodyParser());
 app.use(express.json({limit: '50mb'}));
 app.get('/set/:pin/:state',(req, res) => {
     pins[req.params.pin].writeSync(parseInt(req.params.state));

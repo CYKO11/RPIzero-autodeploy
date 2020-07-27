@@ -61,7 +61,7 @@ function surprise(cb) {
     (function loop() {
         var now = new Date();
         console.log([now.getHours(),now.getMinutes()]);
-        if (now.getHours() === 1 && now.getMinutes() === 18) {
+        if (now.getHours() === 0 && now.getMinutes() === 22) {
             pins["17"].writeSync(0);
         }
         now = new Date();                  // allow for time passing

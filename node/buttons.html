@@ -1,9 +1,73 @@
 <!DOCTYPE html>
 <html>
-<body>
+<style>
+    button.switch {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+    button.on {
+        background-color: #4CAF50;
+    }
+    button.off {
+        background-color: #f44336;
+    }
+</style>
+<body style="background-color: black;padding-top: 60px;padding-bottom: 40px;">
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+<!-- <h> GPIO 17</h> 
+<div>
+    <button id="17" onclick="pin_req(17,0)">on</button>
+    <button id="17" onclick="pin_req(17,1)">off</button>
+</div>
+<div></div>
+<h> GPIO 27</h> 
+<div></div>
+<button id="27" onclick="pin_req(27,0)">on</button>
+<button id="27" onclick="pin_req(27,1)">off</button>
+<div></div>
+<h> GPIO 17</h> 
+<div></div>
+<button id="22" onclick="pin_req(22,0)">on</button>
+<button id="22" onclick="pin_req(22,1)">off</button> -->
 
+<h1 style="color: white;"> Header </h1>
+<div>
+    <div style="display: inline-block;">
+        <h3 style="color: white; text-align: center;"> GPIO 17 </h3>
+        <!-- <button id="17on" style="border: none;color: black; padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px;"> ON </button> -->
+        <button id="17on" class="switch on" onclick="pin_req(17,0)"> ON </button>
+        <button id="17off" class="switch off" onclick="pin_req(17,1)"> OFF </button>
+    </div>
+    <div style="display: inline-block;">
+        <h3 style="color: white; text-align: center;"> GPIO 27 </h3>
+        <button id="27on" class="switch on" onclick="pin_req(27,0)"> ON </button>
+        <button id="27off" class="switch off" onclick="pin_req(27,1)"> ON </button>
+    </div>
+    <div style="display: inline-block;">
+        <h3 style="color: white; text-align: center;"> GPIO 22 </h3>
+        <button id="22on" class="switch on" onclick="pin_req(22,0)"> ON </button>
+        <button id="22off" class="switch off" onclick="pin_req(22,1)"> OFF </button>
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        document.getElementById("demo").innerHTML = "Hello World";
+    }
+    function pin_req(id, state){
+        console.log(id);
+        request('http://192.168.8.120:8080/set/' + id + '/' + state);
+    }
+    function request(url){
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+</script>
 </body>
 </html>

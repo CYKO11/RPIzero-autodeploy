@@ -23,7 +23,7 @@ app.get('/set/:pin/:state',(req, res) => {
 app.get('/read/:pin/:state',(req, res) => {
     res.json({"status": pins[req.params.pin].readSync()});
 })
-app.get('/buttons', (req, res) => {
+app.get('/', (req, res) => {
     fs.readFile('buttons.html', function(err, data) {
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.write(data);

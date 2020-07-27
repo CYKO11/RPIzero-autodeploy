@@ -50,10 +50,6 @@ async function kill_animation(){
     pins["17"].writeSync(1);
     pins["27"].writeSync(1);
     pins["22"].writeSync(1);
-    await sleep(200);
-    pins["17"].writeSync(0);
-    pins["27"].writeSync(0);
-    pins["22"].writeSync(0);
 }
 app.get('/kill', (req,res) => {
     kill_animation().then(() => {

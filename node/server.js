@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const fs = require('fs');
+const { resolveSoa } = require('dns');
 var Gpio = require('onoff').Gpio;
 var pins = {
     "17": new Gpio(17, 'out'),
@@ -47,6 +48,7 @@ app.get('/kill', (req,res) => {
     pins["27"].writeSync(1);
     pins["22"].writeSync(1);
     console.log('shutdown command recieved');
+    res.json({"shutting down":"ready for redeploy"});
     process.exit();
 })
 app.listen(8080, () => {

@@ -60,6 +60,7 @@ async function blink(ms){
 function surprise(cb) {
     (function loop() {
         var now = new Date();
+        console.log([now.getHours(),now.getMinutes()]);
         if (now.getHours() === 1 && now.getMinutes() === 18) {
             pins["17"].writeSync(0);
         }

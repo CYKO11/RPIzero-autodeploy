@@ -55,7 +55,7 @@ async function blink(ms){
     await sleep(ms);
     pins["17"].writeSync(1);
     if (stop == 0)
-        blink();
+        blink(ms);
 }
 app.get('/blink/:ms', (req,res) => {
     if (req.params.ms > 50){

@@ -37,6 +37,15 @@ app.get('/', (req, res) => {
     });
 })
 app.get('/kill', (req,res) => {
+    pins["17"].writeSync(1);
+    pins["27"].writeSync(1);
+    pins["22"].writeSync(1);
+    pins["17"].writeSync(0);
+    pins["27"].writeSync(0);
+    pins["22"].writeSync(0);
+    pins["17"].writeSync(1);
+    pins["27"].writeSync(1);
+    pins["22"].writeSync(1);
     console.log('shutdown command recieved');
     process.exit();
 })

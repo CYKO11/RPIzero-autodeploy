@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 const fs = require('fs');
 const { resolveSoa } = require('dns');
+const { kill } = require('process');
 var Gpio = require('onoff').Gpio;
 var pins = {
     "17": new Gpio(17, 'out'),
@@ -37,19 +38,29 @@ app.get('/', (req, res) => {
         return res.end();
     });
 })
-app.get('/kill', (req,res) => {
+function sleep(ms){
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+async function kill_animation(){
+    await sleep(1000);
     pins["17"].writeSync(1);
     pins["27"].writeSync(1);
     pins["22"].writeSync(1);
+    await sleep(1000);
     pins["17"].writeSync(0);
     pins["27"].writeSync(0);
     pins["22"].writeSync(0);
+    await sleep(1000);
     pins["17"].writeSync(1);
     pins["27"].writeSync(1);
     pins["22"].writeSync(1);
-    console.log('shutdown command recieved');
-    res.json({"shutting down":"ready for redeploy"});
-    process.exit();
+}
+app.get('/kill', (req,res) => {
+    kill_animation().then(() => {
+        console.log('shutdown command recieved');
+        res.json({"shutting down":"ready for redeploy"});
+        process.exit();
+    })
 })
 app.listen(8080, () => {
     console.log(`Server is running on port: 8080`);

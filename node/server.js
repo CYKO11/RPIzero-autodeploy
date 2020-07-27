@@ -20,8 +20,14 @@ app.get('/set/:pin/:state',(req, res) => {
     pins[req.params.pin].writeSync(parseInt(req.params.state));
     res.json({"status":"done"});
 })
-app.get('/read/:pin/:state',(req, res) => {
-    res.json({"status": pins[req.params.pin].readSync()});
+var pin_keys = []
+var pin_states = {}
+app.get('/read',(req, res) => {
+    pin_keys = Object.keys(pins);
+    pin_keys.forEach((Element) => {
+        pin_states[Element] = pins[Element].readSync();
+    })
+    res.json(pin_states);
 })
 app.get('/', (req, res) => {
     fs.readFile('buttons.html', function(err, data) {

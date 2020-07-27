@@ -1,9 +1,9 @@
-// var Gpio = require('onoff').Gpio;
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
-var Gpio = require('onoff').Gpio; //require onoff to control GPIO
+const fs = require('fs');
+var Gpio = require('onoff').Gpio;
 var pins = {
     "17": new Gpio(17, 'out'),
     "27": new Gpio(27, 'out'),
@@ -22,6 +22,13 @@ app.get('/set/:pin/:state',(req, res) => {
 })
 app.get('/read/:pin/:state',(req, res) => {
     res.json({"status": pins[req.params.pin].readSync()});
+})
+app.get('/buttons', (req, res) => {
+    fs.readFile('buttons.html', function(err, data) {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(data);
+        return res.end();
+    });
 })
 app.listen(8080, () => {
     console.log(`Server is running on port: 8080`);

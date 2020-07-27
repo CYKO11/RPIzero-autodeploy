@@ -48,6 +48,22 @@ async function kill_animation(){
     pins["27"].writeSync(1);
     pins["22"].writeSync(1);
 }
+var stop = 0;
+async function blink(){
+    await sleep(200);
+    pins["17"].writeSync(0);
+    await sleep(200);
+    pins["17"].writeSync(1);
+    if (stop == 0)
+        blink();
+}
+app.get('/blink', (req,res) => {
+    stop = 0;
+    blink();
+})
+app.get('/stop', (req,res) => {
+    stop = 1;
+})
 app.get('/kill', (req,res) => {
     kill_animation().then(() => {
         console.log('shutdown command recieved');

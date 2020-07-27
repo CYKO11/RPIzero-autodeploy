@@ -60,7 +60,7 @@ async function blink(ms){
 app.get('/blink/:ms', (req,res) => {
     if (req.params.ms > 50){
         stop = 0;
-        blink(parseInt(this.params.ms));
+        blink(parseInt(req.params.ms));
         res.json({"status":"blinking"});
     } else res.json({"status":"ms cannot be lower than 50"})
 })

@@ -49,17 +49,20 @@ async function kill_animation(){
     pins["22"].writeSync(1);
 }
 var stop = 0;
-async function blink(){
-    await sleep(200);
+async function blink(ms){
+    await sleep(ms);
     pins["17"].writeSync(0);
-    await sleep(200);
+    await sleep(ms);
     pins["17"].writeSync(1);
     if (stop == 0)
         blink();
 }
-app.get('/blink', (req,res) => {
-    stop = 0;
-    blink();
+app.get('/blink/:ms', (req,res) => {
+    if (this.params.ms > 50){
+        stop = 0;
+        blink(parseInt(this.params.ms));
+        res.json({"status":"blinking"});
+    } else res.json({"status":"ms cannot be lower than 50"})
 })
 app.get('/stop', (req,res) => {
     stop = 1;

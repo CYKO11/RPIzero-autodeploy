@@ -57,19 +57,19 @@ async function blink(ms){
     if (stop == 0)
         blink(ms);
 }
-function surprise(cb) {
-    (function loop() {
-        var now = new Date();
-        console.log([now.getHours(),now.getMinutes()]);
-        if (now.getHours() === 0 && now.getMinutes() === 22) {
-            pins["17"].writeSync(0);
-        }
-        now = new Date();                  // allow for time passing
-        var delay = 60000 - (now % 60000); // exact ms to next minute interval
-        setTimeout(loop, delay);
-    })();
-}
-surprise();
+// function surprise(cb) {
+//     (function loop() {
+//         var now = new Date();
+//         console.log([now.getHours(),now.getMinutes()]);
+//         if (now.getHours() === 0 && now.getMinutes() === 22) {
+//             pins["17"].writeSync(0);
+//         }
+//         now = new Date();                  // allow for time passing
+//         var delay = 60000 - (now % 60000); // exact ms to next minute interval
+//         setTimeout(loop, delay);
+//     })();
+// }
+// surprise();
 app.get('/blink/:ms', (req,res) => {
     if (req.params.ms > 50){
         stop = 0;

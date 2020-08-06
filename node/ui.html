@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<style>
+    button.switch {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 32px;
+    }
+    button.on {
+        background-color: #4CAF50;
+    }
+    button.off {
+        background-color: #f44336;
+    }
+</style>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body style="background-color: black;padding-top: 60px;padding-bottom: 40px;">
+    <h1 style="color: white;"> Header </h1>
+    <div>
+        <div style="display: inline-block;">
+            <button id="25" class="switch on" onclick="pin_flip(25)"> Floor Lamp </button>
+        </div>
+        <div style="display: inline-block;">
+            <button id="4" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="pin_flip(4)"> Main </button>
+        </div>
+    </div>
+<script>
+    function myFunction() {
+        document.getElementById("demo").innerHTML = "Hello World";
+    }
+    function pin_req(id, state){
+        request('http://192.168.8.120:8080/set/' + id + '/' + state);
+    }
+    function pin_flip(id){
+        request('http://192.168.8.120:8080/flip/' + id).then(res => {
+            console.log(res);
+        })
+        // var req;
+        // request('http://192.168.8.120:8080/read').onload = function(req){
+        //     req = JSON.parse(req.target.response);
+        //     if (req[id] == 1)
+        //         pin_req(id, 0);
+        //     else
+        //         pin_req(id, 1);
+        // };
+    }
+    async function read_states(){
+        var res = await request('http://192.168.8.120:8080/read');
+        if (res == null) return;
+        var keys = Object.keys(res);
+        var doc = null;
+        keys.forEach(Element => {
+            doc = document.getElementById(Element);
+            if (doc != null){
+                if (res[Element] == 1)  document.getElementById(Element).className = "w3-button w3-black w3-border w3-border-red w3-round-large";
+                else document.getElementById(Element).className = "w3-button w3-black w3-border w3-border-green w3-round-large";
+            }
+        })
+        await sleep(200);
+        read_states();
+    }
+    read_states();
+    function request(url){
+        return new Promise(resolve => {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", url, true);
+            xhttp.onload = function(){
+                xhttp.status == 200 ? resolve(JSON.parse(xhttp.response)) : resolve(null);
+            }
+            xhttp.send();
+        })
+    }
+    function sleep(ms){
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+</script>
+</body>
+</html>

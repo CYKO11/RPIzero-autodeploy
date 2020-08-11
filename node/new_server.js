@@ -137,7 +137,28 @@ function set_pin_set(pins, state){
 function sleep(ms){
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+// server basics
+// kill command
+function set_all(state){
+    pin_conf.forEach((Element) => {
+        pins_conf[Element].pin.writeSync(state);
+    })
+}
+app.get('/kill', (req,res) => {
+    async function kill_animation(){
+        await sleep(200);
+        set_all(0);
+        await sleep(200);
+        set_all(1);
+    }
+    kill_animation().then(() => {
+        console.log('shutdown command recieved');
+        res.json({"shutting down":"ready for redeploy"});
+        process.exit();
+    })
+})
 
+// server host
 app.listen(8080, () => {
     console.log(`Server is running on port: 8080`);
     set_all(0);
@@ -145,5 +166,6 @@ app.listen(8080, () => {
         set_all(1);
     })
 });
+
 
 

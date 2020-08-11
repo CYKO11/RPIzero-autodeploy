@@ -7,8 +7,8 @@ var Gpio = require('onoff').Gpio;
 var pin_conf = {
     "5": {
         "health":"good",
-        "func":"ambient",
-        "name":"floor lamp",
+        "func":"spare",
+        "name":null,
         "pos":{
             "room":1,
             "corner":4,
@@ -29,8 +29,8 @@ var pin_conf = {
     },
     "13":{
         "health":"good",
-        "func":"spare",
-        "name":null,
+        "func":"ambient",
+        "name":"floor_lamp",
         "pos":{
             "room":null,
             "corner":null,
@@ -39,8 +39,8 @@ var pin_conf = {
         "pin": new Gpio(13, 'out')
     },
     "19":{
-        "health":"good",
-        "func":"spare",
+        "health":"dead",
+        "func":null,
         "name":null,
         "pos":{
             "room":null,
@@ -51,8 +51,8 @@ var pin_conf = {
     },
     "26":{
         "health":"good",
-        "func":"spare",
-        "name":null,
+        "func":"main",
+        "name":"main_roof_light",
         "pos":{
             "room":null,
             "corner":null,
@@ -72,8 +72,8 @@ var pin_conf = {
         "pin": new Gpio(16, 'out')
     },
     "20":{
-        "health":"good",
-        "func":"spare",
+        "health":"dead",
+        "func":null,
         "name":null,
         "pos":{
             "room":null,
@@ -136,8 +136,10 @@ function set_pin_set(pins, state){
 app.get('/test/:pin/:state',(req, res) => {
     if (req.params.pin === "all")
         set_all(parseInt(req.params.state));
-    else
-        pin_conf[req.params.pin].pin.writeSync(parseInt(req.params.state));
+    else {
+        if (pin_conf[req.params.pin])
+            pin_conf[req.params.pin].pin.writeSync(parseInt(req.params.state));
+    }
     res.json({"status":"done"});
 })
 

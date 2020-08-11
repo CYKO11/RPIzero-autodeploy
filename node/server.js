@@ -137,7 +137,7 @@ app.get('/test/:pin/:state',(req, res) => {
     if (req.params.pin === "all")
         set_all(parseInt(req.params.state));
     else
-        pin_conf[req.params.pin].writeSync(parseInt(req.params.state));
+        pin_conf[req.params.pin].pin.writeSync(parseInt(req.params.state));
     res.json({"status":"done"});
 })
 

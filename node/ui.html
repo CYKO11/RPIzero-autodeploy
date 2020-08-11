@@ -16,19 +16,54 @@
     button.off {
         background-color: #f44336;
     }
+    div.back {
+        background-color: grey;
+        width: 80%;
+        display: inline-block;
+    }
+    div.sLeft {
+        background-color: red;
+        margin: 0;
+        width:9%;
+        display: inline-block;
+    }
+    div.header {
+        background-color: red;
+        margin: 0;
+        width: 100%;
+    }
 </style>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body style="background-color: black;padding-top: 60px;padding-bottom: 40px;">
-    <h1 style="color: white;"> Header </h1>
-    <div>
-        <div style="display: inline-block;">
-            <button id="25" class="switch on" onclick="pin_flip(25)"> Floor Lamp </button>
-        </div>
-        <div style="display: inline-block;">
-            <button id="4" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="pin_flip(4)"> Main </button>
+    <div class="header" >
+        <h1 style="color: white;"> Header </h1>
+    </div>
+    <div class="sLeft" id="leftbar">
+        <!-- <div style="display: inline-block;">
+            <button id="25" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="pin_flip(20)"> Pin1 </button>
+        </div> -->
+    </div>
+    <div class="back">
+        <div>
+            <div style="display: inline-block;">
+                <button id="25" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="pin_flip(13)"> Floor Lamp </button>
+            </div>
+            <div style="display: inline-block;">
+                <button id="4" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="pin_flip(26)"> Main </button>
+            </div>
         </div>
     </div>
-<script>
+    <div class="sLeft"> sLeft </div>
+    <script>
+    var pins = [5,6,13,19,26,16,20,21];
+    function pindiv(pin){
+        return '<div style="display: inline-block;"><button id="' + pin + '" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="pin_flip(' + pin + ')"> Pin' + pin + ' </button></div>';
+    }
+    pins.forEach(Element => {
+        var curr_pins = document.getElementById("leftbar").innerHTML;
+        console.log(curr_pins);
+        document.getElementById("leftbar").innerHTML = curr_pins += pindiv(Element);
+    })
     function myFunction() {
         document.getElementById("demo").innerHTML = "Hello World";
     }
@@ -39,14 +74,7 @@
         request('http://192.168.8.120:8080/flip/' + id).then(res => {
             console.log(res);
         })
-        // var req;
-        // request('http://192.168.8.120:8080/read').onload = function(req){
-        //     req = JSON.parse(req.target.response);
-        //     if (req[id] == 1)
-        //         pin_req(id, 0);
-        //     else
-        //         pin_req(id, 1);
-        // };
+        console.log("pin_flip");
     }
     async function read_states(){
         var res = await request('http://192.168.8.120:8080/read');

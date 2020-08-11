@@ -5,14 +5,14 @@ const app = express();
 const fs = require('fs');
 var Gpio = require('onoff').Gpio;
 var pins = {
-    "27": new Gpio(27, 'out'),
-    "22": new Gpio(22, 'out'),
-    "4": new Gpio(4, 'out'),
-    "18": new Gpio(18, 'out'),
-    "23": new Gpio(23, 'out'),
-    "24": new Gpio(24, 'out'),
-    "25": new Gpio(25, 'out'),
-    "17": new Gpio(17, 'out'),
+    "5": new Gpio(5, 'out'),
+    "6": new Gpio(6, 'out'),
+    "13": new Gpio(13, 'out'),
+    "19": new Gpio(19, 'out'),
+    "26": new Gpio(26, 'out'),
+    "16": new Gpio(16, 'out'),
+    "20": new Gpio(20, 'out'),
+    "21": new Gpio(21, 'out'),
 }
 // server setup
 app.use(cors());
@@ -54,20 +54,20 @@ app.get('/', (req, res) => {
     });
 })
 
-app.get('/satisfy', (req, res) => {
-    set_all(1);
-    async function satisfy(){
-        await sleep(500);
-        var i = 0;
-        while (i < pin_keys.length){
-            pins[pin_keys[i]].writeSync(0);
-            await sleep(200);
-            i++;
-        }
-    }
-    satisfy();
-    res.json({"status":"are you satisfied"});
-})
+// app.get('/satisfy', (req, res) => {
+//     set_all(1);
+//     async function satisfy(){
+//         await sleep(500);
+//         var i = 0;
+//         while (i < pin_keys.length){
+//             pins[pin_keys[i]].writeSync(0);
+//             await sleep(200);
+//             i++;
+//         }
+//     }
+//     satisfy();
+//     res.json({"status":"are you satisfied"});
+// })
 
 // a very usefull function
 function sleep(ms){
@@ -98,5 +98,8 @@ app.get('/kill', (req,res) => {
 // server host
 app.listen(8080, () => {
     console.log(`Server is running on port: 8080`);
-    // set_all(0);
+    set_all(0);
+    sleep(500).then(() => {
+        set_all(1);
+    })
 });

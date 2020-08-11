@@ -80,16 +80,16 @@
         console.log("pin_flip");
     }
     function ambient(){
-        request('http://192.168.8.120:8080/set/func/ambient/0' + id);
-        request('http://192.168.8.120:8080/set/func/main/1' + id);
+        request('http://192.168.8.120:8080/set/func/ambient/0');
+        request('http://192.168.8.120:8080/set/func/main/1');
     }
     function full(){
-        request('http://192.168.8.120:8080/set/state/good/0' + id);
-        request('http://192.168.8.120:8080/set/func/spare/1' + id);
+        request('http://192.168.8.120:8080/set/state/good/0');
+        request('http://192.168.8.120:8080/set/func/spare/1');
     }
     function main_only(){
-        request('http://192.168.8.120:8080/set/func/main/0' + id);
-        request('http://192.168.8.120:8080/set/func/ambient/1' + id);
+        request('http://192.168.8.120:8080/set/func/main/0');
+        request('http://192.168.8.120:8080/set/func/ambient/1');
     }
     async function read_states(){
         var res = await request('http://192.168.8.120:8080/read');

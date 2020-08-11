@@ -133,7 +133,7 @@ function set_pin_set(pins, state){
 //
 // //
 // set individiual 
-app.get('/set/:pin/:state',(req, res) => {
+app.get('/test/:pin/:state',(req, res) => {
     if (req.params.pin === "all")
         set_all(parseInt(req.params.state));
     else

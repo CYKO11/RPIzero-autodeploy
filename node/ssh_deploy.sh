@@ -14,6 +14,6 @@ then
 else 
     echo "soft_deploy"
     scp -r server.js *.html *.json pi@192.168.8.120:/home/pi/package
-    ssh pi@192.168.8.120 "cd package;node server.js"
+    ssh pi@192.168.8.120 "cd package;node new_server.js"
     echo "done"
 fi

@@ -72,7 +72,7 @@ var pin_conf = {
         "pin": new Gpio(16, 'out')
     },
     "20":{
-        "health":"dead",
+        "health":"sketch",
         "func":null,
         "name":null,
         "pos":{

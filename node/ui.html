@@ -54,6 +54,9 @@
             <div style="display: inline-block;">
                 <button id="4" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="main_only(26)"> Main </button>
             </div>
+            <div style="display: inline-block;">
+                <button id="4" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="dark(26)"> dark </button>
+            </div>
         </div>
     </div>
     <div class="sLeft"> sLeft </div>
@@ -89,6 +92,10 @@
     }
     function main_only(){
         request('http://192.168.8.120:8080/set/func/main/0');
+        request('http://192.168.8.120:8080/set/func/ambient/1');
+    }
+    function dark(){
+        request('http://192.168.8.120:8080/set/func/main/1');
         request('http://192.168.8.120:8080/set/func/ambient/1');
     }
     async function read_states(){

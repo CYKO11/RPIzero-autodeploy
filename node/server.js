@@ -147,6 +147,13 @@ function sleep(ms){
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 // server basics
+app.get('/', (req, res) => {
+    fs.readFile('ui.html', function(err, data) {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(data);
+        return res.end();
+    });
+})
 // kill command
 function set_all(state){
     var pin_num = Object.keys(pin_conf);

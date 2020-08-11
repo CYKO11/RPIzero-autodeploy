@@ -46,10 +46,13 @@
     <div class="back">
         <div>
             <div style="display: inline-block;">
-                <button id="25" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="pin_flip(13)"> Floor Lamp </button>
+                <button id="25" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="ambient(13)"> ambient </button>
             </div>
             <div style="display: inline-block;">
-                <button id="4" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="pin_flip(26)"> Main </button>
+                <button id="4" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="full(26)"> full </button>
+            </div>
+            <div style="display: inline-block;">
+                <button id="4" class="w3-button w3-black w3-border w3-border-red w3-round-large" onclick="main_only(26)"> Main </button>
             </div>
         </div>
     </div>
@@ -75,6 +78,18 @@
             console.log(res);
         })
         console.log("pin_flip");
+    }
+    function ambient(){
+        request('http://192.168.8.120:8080/set/func/ambient/0' + id);
+        request('http://192.168.8.120:8080/set/func/main/1' + id);
+    }
+    function full(){
+        request('http://192.168.8.120:8080/set/state/good/0' + id);
+        request('http://192.168.8.120:8080/set/func/spare/1' + id);
+    }
+    function main_only(){
+        request('http://192.168.8.120:8080/set/func/main/0' + id);
+        request('http://192.168.8.120:8080/set/func/ambient/1' + id);
     }
     async function read_states(){
         var res = await request('http://192.168.8.120:8080/read');
